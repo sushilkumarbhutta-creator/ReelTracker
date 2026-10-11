@@ -11,6 +11,7 @@ import java.util.Locale
 object Repository {
 
     private const val PREFS_NAME = "reel_tracker"
+    private const val KEY_DEBUG_IDS = "debug_ids"
 
     enum class Type(val key: String) { REEL("reel"), SHORT("short") }
 
@@ -29,4 +30,11 @@ object Repository {
         val newValue = getCount(context, type) + 1
         prefs(context).edit().putInt(key(type), newValue).apply()
     }
+
+    fun saveDebugIds(context: Context, text: String) {
+        prefs(context).edit().putString(KEY_DEBUG_IDS, text).apply()
+    }
+
+    fun getDebugIds(context: Context): String =
+        prefs(context).getString(KEY_DEBUG_IDS, "") ?: ""
 }
